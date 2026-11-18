@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
+  <title>For Ava</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Italiana&family=Plus+Jakarta+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Centralized polite live region for dynamic status & validation announcements -->
+  <div id="live-announcer" class="visually-hidden" aria-live="polite"></div>
+
+  <!-- Minimalist Passcode Gate -->
+  <section
+    id="passcode-gate"
+    class="gate-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="gate-title"
+  >
+    <div class="gate-ambient" aria-hidden="true"></div>
+    <div class="gate-card frosted-glass">
+      <p class="font-mono-tag gate-eyebrow">Private Edition · 01</p>
+      <h1 id="gate-title" class="font-editorial-alt gate-title">For Ava</h1>
+
+      <form id="gate-form" class="gate-form" novalidate>
+        <div class="field">
+          <label for="passcode-input" class="field-label">Passcode</label>
+          <span id="passcode-hint" class="field-hint">Enter the 4-digit passcode</span>
+
+          <div class="input-row">
+            <input
+              id="passcode-input"
+              name="passcode"
+              type="password"
+              inputmode="numeric"
+              pattern="\d{4}"
+              maxlength="4"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="none"
+              spellcheck="false"
+              enterkeyhint="done"
+              required
+              aria-describedby="passcode-hint"
+              data-error="passcode-error"
+              aria-invalid="false"
+            >
+            <button
+              id="toggle-passcode"
+              type="button"
+              class="icon-btn"
+              aria-pressed="false"
+              aria-label="Show passcode"
+            >
+              <svg class="icon-eye" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg class="icon-eye-off" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" hidden>
+                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-6.5 0-10-7-10-7a21.8 21.8 0 0 1 5.06-5.94" />
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 7 10 7a21.8 21.8 0 0 1-2.16 3.19" />
+                <path d="M1 1l22 22" />
+              </svg>
+            </button>
+          </div>
+
+          <div id="passcode-error" class="error-msg">
+            <span role="img" aria-label="Error">!</span>
+            <span id="passcode-error-text">Please enter the 4-digit passcode.</span>
+          </div>
+        </div>
+
+        <button id="unlock-btn" type="submit" class="submit-btn">Open</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Main Editorial Experience (inert until unlocked) -->
+  <div id="showcase-root" class="showcase-root" inert>
+    <a href="#main-content" class="skip-link visually-hidden">Skip to content</a>
+
+    <!-- Floating Pill Navbar -->
+    <header class="site-header">
+      <nav class="pill-nav frosted-glass" aria-label="Primary">
+        <a href="#hero" class="nav-brand">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="font-mono-tag">AVA</span>
+        </a>
+        <div class="nav-links">
+          <a href="#hero" class="nav-link">Bouquet</a>
+          <a href="#media-wall" class="nav-link">Stems</a>
+          <a href="#outro" class="nav-link">Note</a>
+        </div>
+        <div class="nav-actions">
+          <button id="rebloom-btn" type="button" class="pill-action">Rebloom</button>
+          <button id="motion-toggle-btn" type="button" class="pill-action" aria-pressed="false">Pause motion</button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <!-- 1. HERO: Minimalist Blooming Bouquet + "I love you, Ava." -->
+      <section id="hero" class="section-hero">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <canvas id="pollen-canvas" class="pollen-canvas" aria-hidden="true"></canvas>
+
+        <div class="hero-inner">
+          <p class="font-mono-tag hero-kicker">For Ava · 2123</p>
+
+          <figure class="bouquet-stage">
+            <svg
+              id="bouquet-svg"
+              class="bouquet-svg"
+              viewBox="0 0 600 660"
+              role="img"
+              aria-label="A minimalist blooming bouquet of blush roses, ivory peonies, ranunculus, eucalyptus leaves, and baby's breath tied with a champagne ribbon"
+            >
+              <title>A bouquet of flowers blooming for Ava</title>
+              <defs>
+                <radialGradient id="glow-pearl" cx="50%" cy="45%" r="55%">
+                  <stop offset="0%" stop-color="#f7d6dc" stop-opacity="0.22" />
+                  <stop offset="60%" stop-color="#d4a5a5" stop-opacity="0.06" />
+                  <stop offset="100%" stop-color="#050505" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="stem-grad" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="#354a3c" />
+                  <stop offset="100%" stop-color="#6f8f77" />
+                </linearGradient>
+                <linearGradient id="ribbon-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f5e6d3" />
+                  <stop offset="50%" stop-color="#d9be9d" />
+                  <stop offset="100%" stop-color="#b69874" />
+                </linearGradient>
+                <radialGradient id="petal-rose" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#fde4e8" />
+                  <stop offset="55%" stop-color="#e59eb0" />
+                  <stop offset="100%" stop-color="#9e5669" />
+                </radialGradient>
+                <radialGradient id="petal-peony" cx="40%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#fff8f9" />
+                  <stop offset="60%" stop-color="#f6ccd5" />
+                  <stop offset="100%" stop-color="#cf8799" />
+                </radialGradient>
+                <radialGradient id="petal-champagne" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#fff6ef" />
+                  <stop offset="60%" stop-color="#efd0c2" />
+                  <stop offset="100%" stop-color="#c28e7d" />
+                </radialGradient>
+              </defs>
+
+              <circle cx="300" cy="285" r="245" fill="url(#glow-pearl)" />
+              <g id="bouquet-stems"></g>
+              <g id="bouquet-foliage"></g>
+              <g id="bouquet-babysbreath"></g>
+              <g id="bouquet-flowers"></g>
+              <g id="bouquet-ribbon"></g>
+            </svg>
+            <figcaption id="flower-whisper" class="flower-whisper font-editorial-alt" aria-live="polite">
+              Every stem, picked for you.
+            </figcaption>
+          </figure>
+
+          <h1 class="hero-dedication font-editorial-alt">I love you, Ava.</h1>
+          <p class="hero-sub font-mono-tag">Scroll gently</p>
+        </div>
+      </section>
+
+      <!-- 2. PINNED SCROLLYTELLING: Minimalist Chapter Dissolves -->
+      <section id="scrolly-container" class="section-scrolly">
+        <div class="scrolly-stage">
+          <div class="scrolly-visuals" aria-hidden="true">
+            <div class="scrolly-visual is-active">
+              <div class="halo-ring halo-1"></div>
+            </div>
+            <div class="scrolly-visual">
+              <div class="halo-ring halo-2"></div>
+            </div>
+            <div class="scrolly-visual">
+              <div class="halo-ring halo-3"></div>
+            </div>
+          </div>
+
+          <div class="scrolly-chapters">
+            <article class="scrolly-chapter is-active">
+              <p class="font-mono-tag chapter-tag">01 / Quiet</p>
+              <h2 class="font-editorial-alt chapter-title">A quiet room, just for us.</h2>
+            </article>
+            <article class="scrolly-chapter">
+              <p class="font-mono-tag chapter-tag">02 / Bloom</p>
+              <h2 class="font-editorial-alt chapter-title">Flowers that never fade.</h2>
+            </article>
+            <article class="scrolly-chapter">
+              <p class="font-mono-tag chapter-tag">03 / Always</p>
+              <h2 class="font-editorial-alt chapter-title">I love you, Ava.</h2>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. 3D MEDIA WALL: Botanical Specimen Cards -->
+      <section id="media-wall" class="section-block">
+        <div class="section-container">
+          <header class="section-head">
+            <p class="font-mono-tag">02 / Stems</p>
+            <h2 class="font-editorial section-title">Inside the Bouquet</h2>
+          </header>
+
+          <div class="stage-3d">
+            <article class="specimen-card frosted-glass tilt-left" tabindex="0">
+              <div class="specimen-art" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="96" height="96">
+                  <circle cx="60" cy="60" r="34" fill="url(#petal-peony)" opacity="0.9" />
+                  <circle cx="60" cy="60" r="21" fill="url(#petal-rose)" opacity="0.85" />
+                  <circle cx="60" cy="60" r="8" fill="#f3d6a4" />
+                </svg>
+              </div>
+              <p class="font-mono-tag card-meta">Stem 01</p>
+              <h3 class="font-editorial-alt card-title">Ivory Peony</h3>
+              <p class="card-copy">Centerpiece bloom for warmth and stillness.</p>
+            </article>
+
+            <article class="specimen-card frosted-glass tilt-center" tabindex="0">
+              <div class="specimen-art" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="96" height="96">
+                  <ellipse cx="60" cy="60" rx="30" ry="34" fill="url(#petal-rose)" opacity="0.92" />
+                  <ellipse cx="60" cy="58" rx="18" ry="22" fill="url(#petal-champagne)" opacity="0.82" />
+                  <circle cx="60" cy="58" r="7" fill="#c97b8e" />
+                </svg>
+              </div>
+              <p class="font-mono-tag card-meta">Stem 02</p>
+              <h3 class="font-editorial-alt card-title">Blush Garden Rose</h3>
+              <p class="card-copy">Layered petals unfolding one quiet thought at a time.</p>
+            </article>
+
+            <article class="specimen-card frosted-glass tilt-right" tabindex="0">
+              <div class="specimen-art" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="96" height="96">
+                  <path d="M60 98 Q60 58 60 22" stroke="#6f8f77" stroke-width="2.5" fill="none" />
+                  <ellipse cx="44" cy="66" rx="12" ry="7" transform="rotate(-28 44 66)" fill="#587761" />
+                  <ellipse cx="76" cy="52" rx="12" ry="7" transform="rotate(28 76 52)" fill="#6f8f77" />
+                  <ellipse cx="46" cy="38" rx="10" ry="6" transform="rotate(-24 46 38)" fill="#6f8f77" />
+                </svg>
+              </div>
+              <p class="font-mono-tag card-meta">Stem 03</p>
+              <h3 class="font-editorial-alt card-title">Silver Eucalyptus</h3>
+              <p class="card-copy">Soft sage framing every bloom in calm balance.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. TEMPORAL BENTO: Morning / Noon / Evening Atmosphere -->
+      <section id="temporal-bento" class="section-block temporal-section">
+        <div class="section-container">
+          <div class="temporal-panel frosted-glass">
+            <div class="temporal-controls" role="tablist" aria-label="Bouquet lighting">
+              <button type="button" role="tab" aria-selected="true" class="temporal-tab is-active" data-mode="morning">Morning</button>
+              <button type="button" role="tab" aria-selected="false" class="temporal-tab" data-mode="noon">Noon</button>
+              <button type="button" role="tab" aria-selected="false" class="temporal-tab" data-mode="evening">Evening</button>
+            </div>
+
+            <div class="temporal-body">
+              <p id="temporal-tag" class="font-mono-tag chapter-tag">07:30 AM / DAWN BLUSH</p>
+              <h2 id="temporal-title" class="font-editorial-alt temporal-title">First Light on Petals</h2>
+              <p id="temporal-desc" class="temporal-desc">Soft amber warmth touching every rose before the day begins.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SPACES NAVIGATOR: Split Index & Vignette -->
+      <section id="spaces-navigator" class="section-block">
+        <div class="section-container">
+          <header class="section-head">
+            <p class="font-mono-tag">04 / Notes</p>
+            <h2 class="font-editorial section-title">Three Little Truths</h2>
+          </header>
+
+          <div class="spaces-grid">
+            <div class="spaces-index">
+              <button type="button" class="space-nav-item frosted-glass is-active" data-index="0">
+                <span class="font-mono-tag">01</span>
+                <span class="font-editorial-alt space-label">You make ordinary days glow</span>
+              </button>
+              <button type="button" class="space-nav-item frosted-glass" data-index="1">
+                <span class="font-mono-tag">02</span>
+                <span class="font-editorial-alt space-label">Every detail reminds me of you</span>
+              </button>
+              <button type="button" class="space-nav-item frosted-glass" data-index="2">
+                <span class="font-mono-tag">03</span>
+                <span class="font-editorial-alt space-label">Always yours, in every season</span>
+              </button>
+            </div>
+
+            <div class="spaces-stage frosted-glass">
+              <div class="space-media-item is-active">
+                <p class="font-mono-tag">I</p>
+                <p class="font-editorial-alt space-quote">“Just seeing your name turns the quietest screen warm.”</p>
+              </div>
+              <div class="space-media-item">
+                <p class="font-mono-tag">II</p>
+                <p class="font-editorial-alt space-quote">“Twenty-one, twenty-three — a code only meant for us.”</p>
+              </div>
+              <div class="space-media-item">
+                <p class="font-mono-tag">III</p>
+                <p class="font-editorial-alt space-quote">“I love you, Ava. Today, tomorrow, endlessly.”</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. SPEC BENTO: High-Contrast Numerals + Cursor Radial Glow -->
+      <section id="spec-bento" class="section-block">
+        <div class="section-container">
+          <div class="bento-grid">
+            <article class="spec-card frosted-glass bento-wide">
+              <p class="font-mono-tag card-meta">Passkey</p>
+              <p class="spec-numeral font-editorial-alt">2123</p>
+              <p class="card-copy">Unlocked only for Ava.</p>
+            </article>
+            <article class="spec-card frosted-glass">
+              <p class="font-mono-tag card-meta">Blooms</p>
+              <p class="spec-numeral font-editorial-alt">08</p>
+              <p class="card-copy">Roses, peonies &amp; baby's breath.</p>
+            </article>
+            <article class="spec-card frosted-glass">
+              <p class="font-mono-tag card-meta">Dedication</p>
+              <p class="spec-numeral font-editorial-alt">∞</p>
+              <p class="card-copy">I love you, Ava.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. MONOLITHIC OUTRO -->
+      <section id="outro" class="section-outro">
+        <div class="outro-panorama" aria-hidden="true"></div>
+        <div class="outro-inner">
+          <p class="font-mono-tag">Forever &amp; Always</p>
+          <h2 class="outro-display font-editorial">I LOVE YOU, AVA</h2>
+          <button id="outro-rebloom-btn" type="button" class="pill-action outro-btn">Watch the bouquet bloom again</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span class="font-mono-tag">For Ava</span>
+        <span class="font-mono-tag">2123 · Forever</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Smooth Scroll & Scrollytelling Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
